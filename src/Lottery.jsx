@@ -2,31 +2,21 @@ import {useState} from "react"
 import {genRandom} from "./helper"
 import "./Lottery.css"
 import {sum} from "./helper"
+import Ticket from "./Ticket"
 
-function Lottery(){
-    // let ticket = [ceil(Math.random())*10,ceil(Math.random())*10,ceil(Math.random())*10]
-    let [ticket,setticket] = useState(genRandom(3));
-    let isWinning = sum(ticket) === 15;
+function Lottery({n,winningSum}){
+    let [ticket,setticket] = useState(genRandom(n));
+    let isWinning = sum(ticket) === winningSum;
 
     let buyTicket = () => {
-        setticket(genRandom(3));
+        setticket(genRandom(n));
     }
 
-    
     return (
-        <div>
+        <div className="Lottery">
             <h1>Lottery Ticket</h1>
-            <div className="ticket" style={{color:"white"}}>
-                <span>
-                    {ticket[0]}
-                </span>
-                <span>
-                    {ticket[1]}
-                </span>
-                <span>
-                    {ticket[2]}
-                </span>
-            </div>
+            <Ticket ticket={ticket} />
+            <br/>
             <button onClick={buyTicket}>buy ticket</button>
             <h3>{isWinning && "congratulation, you won!"}</h3>
         </div>
